@@ -1,21 +1,29 @@
 import React from 'react'
 
 const appointmentTimeOfDay = (startsAt) => {
-    const[h,m] = new Date(startsAt)
+    const [h, m] = new Date(startsAt)
         .toTimeString()
         .split(":");
     return `${h}:${m}`;
 }
-export const Appointment = ({ customer }) => customer.firstName;
+export const Appointment = ({customer}) => customer.firstName;
 
 export const AppointmentsDayView = ({appointments}) => (
     <div id="appointmentsDayView">
         <ol>
             {appointments.map((appointment) => (
-                <li key={appointment.startsAt} >
+                <li key={appointment.startsAt}>
                     {appointmentTimeOfDay(appointment.startsAt)}
                 </li>
             ))};
         </ol>
-        <p>There are no appointments scheduled for today.</p>
+        {appointments.length === 0 ?
+            (
+                <p>There are no appointments scheduled for today.</p>
+            )
+            :
+            (
+                <Appointment {...appointments[0]} />
+            )
+        }
     </div>);
