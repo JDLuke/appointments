@@ -22,7 +22,7 @@ export const AppointmentsDayView = ({appointments}) => {
               {appointmentTimeOfDay(appointment.startsAt)}
             </button>
           </li>
-        ))};
+        ))}
       </ol>
       {appointments.length === 0
         ? (<p>There are no appointments scheduled for today.</p>)
