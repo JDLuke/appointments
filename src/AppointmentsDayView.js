@@ -18,6 +18,9 @@ export const Appointment = ({customer}) => {
     <tr>
       <td>{customer.stylist}</td>
     </tr>
+    <tr><td>{customer.phoneNumber}</td></tr>
+    <tr><td>{customer.service}</td></tr>
+    <tr><td>{customer.notes}</td></tr>
     </tbody>
   </table>)
 }
