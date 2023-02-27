@@ -40,3 +40,6 @@ Create dist/index.html
 ## Now we can do local testing
 npm run build
 Open dist/index.html in browser or run 
+
+
+npm install --save-dev jest-matcher-utils

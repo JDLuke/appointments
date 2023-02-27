@@ -1,8 +1,6 @@
 import React from "react";
-import {act} from "react-dom/test-utils"
-
+import {click, initializeReactContainer, render} from "./reactTestExtensions";
 import {Appointment, AppointmentsDayView} from "../src/AppointmentsDayView";
-import {initializeReactContainer, render} from "./reactTestExtensions";
 
 describe('Appointment', () => {
   beforeEach(() => {
@@ -92,7 +90,7 @@ describe('AppointmentsDayView', () => {
   it("renders another appointment when selected", () => {
     render(<AppointmentsDayView appointments={twoAppointments}/>);
     const button = document.querySelectorAll("button")[1];
-    act(() => button.click());
+    click(button)
     expect(document.body.textContent).toContain("Jordan")
   })
 })

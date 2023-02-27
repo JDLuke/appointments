@@ -9,3 +9,8 @@ export const initializeReactContainer = () => {
 export const render = component => {
   act(() => ReactDOM.createRoot(container).render(component))
 }
+
+export const click = button => {
+  act(() => button.click());
+
+}
