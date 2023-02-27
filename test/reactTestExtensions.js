@@ -1,7 +1,7 @@
 import {act} from "react-dom/test-utils";
 import ReactDOM from "react-dom/client";
 
-export let container;
+let container;
 export const initializeReactContainer = () => {
   container = document.createElement("div");
   document.body.replaceChildren(container);
