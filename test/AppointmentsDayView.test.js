@@ -8,10 +8,6 @@ describe('Appointment', () => {
   beforeEach(() => {
     initializeReactContainer();
   })
-  // const render = component => {
-  //   act(() => ReactDOM.createRoot(container).render(component))
-  // }
-  //
   it('renders the customer first name', () => {
     const customer = {firstName: 'Ashley'};
     render(<Appointment customer={customer}/>);
@@ -52,10 +48,6 @@ describe('AppointmentsDayView', () => {
   beforeEach(() => {
     initializeReactContainer();
   })
-  // const render = component => {
-  //   act(() => ReactDOM.createRoot(container).render(component))
-  // }
-
   it("renders a div with the right id", () => {
     render(<AppointmentsDayView appointments={[]}/>);
     expect(document.querySelector("div#appointmentsDayView")).not.toBeNull();
