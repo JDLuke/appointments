@@ -83,4 +83,11 @@ describe('AppointmentsDayView', () => {
     const buttons = document.querySelectorAll("li > button");
     expect(buttons).toHaveLength(2);
   })
+
+  it("renders another appointment when selected", () => {
+    render(<AppointmentsDayView appointments={twoAppointments}/>);
+    const button = document.querySelectorAll("button")[1];
+    act(() => button.click());
+    expect(document.body.textContent).toContain("Jordan")
+  })
 })
