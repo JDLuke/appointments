@@ -37,6 +37,11 @@ describe('Appointment', () => {
     render(<Appointment customer={customer}/>);
     expect(document.body.textContent).toContain('Simpson')
   })
+  it('renders the customers stylist', () => {
+    const customer = {stylist: 'Bill'};
+    render(<Appointment customer={customer}/>);
+    expect(document.body.textContent).toContain('Bill')
+  })
 })
 
 describe('AppointmentsDayView', () => {
