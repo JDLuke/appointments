@@ -19,10 +19,23 @@ describe('Appointment', () => {
     render(<Appointment customer={customer}/>);
     expect(document.body.textContent).toContain('Ashley');
   })
+
   it('renders a second customer first name', () => {
     const customer = {firstName: 'Michael'};
     render(<Appointment customer={customer}/>);
     expect(document.body.textContent).toContain('Michael');
+  })
+
+  it('renders the customer last name', () => {
+    const customer = {lastName: 'Jones'};
+    render(<Appointment customer={customer}/>);
+    expect(document.body.textContent).toContain('Jones')
+  })
+
+  it('renders a second customer last name', () => {
+    const customer = {lastName: 'Simpson'};
+    render(<Appointment customer={customer}/>);
+    expect(document.body.textContent).toContain('Simpson')
   })
 })
 
