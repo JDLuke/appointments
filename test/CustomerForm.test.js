@@ -1,5 +1,5 @@
 import React from "react";
-import {form, initializeReactContainer, render, field } from "./reactTestExtensions";
+import {form, initializeReactContainer, render, field, element} from "./reactTestExtensions";
 import {CustomerForm} from "../src/CustomerForm";
 
 describe("CustomerForm", () => {
@@ -15,15 +15,20 @@ describe("CustomerForm", () => {
 
   it("renders the first name field as a text box", () => {
     render(<CustomerForm original={blankCustomer}/>);
-    const name = field('firstName')
-    expect(name).not.toBeNull();
-    expect(name.tagName).toEqual("INPUT");
-    expect(name.type).toEqual("text");
+    expect(field('firstName')).not.toBeNull();
+    expect(field('firstName').tagName).toEqual("INPUT");
+    expect(field('firstName').type).toEqual("text");
   })
 
   it("includes the existing first name value", () => {
     const customer = {firstName: "Ashley"};
     render(<CustomerForm original={customer} />)
     expect(field('firstName').value).toEqual("Ashley");
+  })
+
+  it("renders a label for the first name field", () => {
+    render(<CustomerForm original={blankCustomer} /> )
+    const label = element("label[for=firstName]");
+    expect(label).not.toBeNull();
   })
 });
