@@ -38,7 +38,7 @@ describe('Appointment', () => {
 
 describe('AppointmentsDayView', () => {
   const today = new Date();
-  const secondButton = elements("button")[1];
+  const secondButton = () => elements("button")[1];
   const twoAppointments = [
     {startsAt: today.setHours(12, 0), customer: {firstName: "Ashley"}},
     {startsAt: today.setHours(13, 0), customer: {firstName: "Jordan"}}
