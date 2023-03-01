@@ -1,5 +1,5 @@
 import React from "react";
-import {click, elements, initializeReactContainer, render} from "./reactTestExtensions";
+import {click, elements, initializeReactContainer, render, textOf, typesOf} from "./reactTestExtensions";
 import {Appointment, AppointmentsDayView} from "../src/AppointmentsDayView";
 
 describe('Appointment', () => {
@@ -38,6 +38,7 @@ describe('Appointment', () => {
 
 describe('AppointmentsDayView', () => {
   const today = new Date();
+  const secondButton = elements("button")[1];
   const twoAppointments = [
     {startsAt: today.setHours(12, 0), customer: {firstName: "Ashley"}},
     {startsAt: today.setHours(13, 0), customer: {firstName: "Jordan"}}
@@ -57,18 +58,14 @@ describe('AppointmentsDayView', () => {
     expect(listElement).not.toBeNull();
   })
 
-
   it("renders an li for each appointment", () => {
     render(<AppointmentsDayView appointments={twoAppointments}/>);
-    const listChildren = elements("ol > li");
-    expect(listChildren).toHaveLength(2);
+    expect(textOf(elements("ol > li"))).toHaveLength(2);
   })
 
   it("renders the time of each appointment", () => {
     render(<AppointmentsDayView appointments={twoAppointments}/>);
-    const listChildren = elements("li");
-    expect(listChildren[0]).toContainText("12:00");
-    expect(listChildren[1]).toContainText("13:00");
+    expect(textOf(elements("li"))).toEqual(["12:00", "13:00"]);
   })
 
   it("initially shows a message saying there are no appointments today", () => {
@@ -83,14 +80,12 @@ describe('AppointmentsDayView', () => {
 
   it("has a button element in each list item", () => {
     render(<AppointmentsDayView appointments={twoAppointments}/>);
-    const buttons = elements("li > button");
-    expect(buttons).toHaveLength(2);
+    expect(typesOf(elements("li > *"))).toEqual(["button", "button"]);
   })
 
   it("renders another appointment when selected", () => {
     render(<AppointmentsDayView appointments={twoAppointments}/>);
-    const button = elements("button")[1];
-    click(button)
+    click(secondButton());
     expect(document.body).toContainText("Jordan")
   })
 })
