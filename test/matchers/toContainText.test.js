@@ -27,6 +27,13 @@ describe("toContainText matcher", () => {
     expect(stripTerminalColor(result.message())).toContain(`expect(element).not.toContainText("text to find")`)
   })
 
+  it("returns a message containing the actual text", () => {
+    const domElement = {
+      textContent: "text to find"
+    };
+    const result = toContainText(domElement, "text to find");
+    expect(stripTerminalColor(result.message())).toContain(`Actual text: "text to find"`);
+  })
 })
 
 
