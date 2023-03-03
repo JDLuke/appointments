@@ -12,7 +12,7 @@ import {
 import {CustomerForm} from "../src/CustomerForm";
 
 describe("CustomerForm", () => {
-  const blankCustomer = {firstName: "", lastName: ""}
+  const blankCustomer = {firstName: "", lastName: "", phoneNumber: ""}
   beforeEach(() => {
     initializeReactContainer();
   });
@@ -84,6 +84,17 @@ describe("CustomerForm", () => {
     itSubmitsExistingValue('lastName', "Ashley");
     itSavesNewValueWhenSubmitted('lastName', 'Jamie');
   })
+
+  describe("phone number field", () => {
+    const fieldName = 'phoneNumber';
+    itRendersAsATextBox(fieldName)
+    itIncludesTheExistingValue(fieldName, '1234567');
+    itRendersALabelForTheField(fieldName, 'Telephone Number');
+    itAssignsAMatchingId(fieldName);
+    itSubmitsExistingValue(fieldName, "1234567");
+    itSavesNewValueWhenSubmitted(fieldName, '7654321');
+  })
+
 
   it("renders a submit button", () => {
     render(<CustomerForm original={blankCustomer}/>);

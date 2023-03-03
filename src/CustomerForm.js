@@ -6,14 +6,15 @@ export const CustomerForm = ({original, onSubmit}) => {
     event.preventDefault();
     onSubmit(customer);
   }
-  const handleChangeFirstName = ({target}) => setCustomer((customer) => ({...customer, firstName: target.value}));
-  const handleChangeLastName = ({target}) => setCustomer((customer) => ({...customer, lastName: target.value}));
+  const handleChangeField = ({target}) => setCustomer((customer) => ({...customer, [target.name]: target.value}));
 
   return (<form onSubmit={handleSubmit}>
     <label htmlFor="firstName">First name</label>
-    <input type="text" id="firstName" name="firstName" value={customer.firstName} onChange={handleChangeFirstName}/>
+    <input type="text" id="firstName" name="firstName" value={customer.firstName} onChange={handleChangeField}/>
     <label htmlFor="lastName">Last name</label>
-    <input type="text" id="lastName" name="lastName" value={customer.lastName} onChange={handleChangeLastName}/>
+    <input type="text" id="lastName" name="lastName" value={customer.lastName} onChange={handleChangeField}/>
+    <label htmlFor="phoneNumber">Telephone Number</label>
+    <input type="text" id="phoneNumber" name="phoneNumber" value={customer.phoneNumber} onChange={handleChangeField} />
     <input type="submit" value="Add"/>
   </form>)
 };

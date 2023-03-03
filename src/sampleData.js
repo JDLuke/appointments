@@ -93,3 +93,9 @@ export const sampleAppointments = [
   },
 ];
 
+
+export const blankCustomer = {
+  firstName: '',
+  lastName: '',
+  phoneNumber: '',
+}
