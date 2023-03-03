@@ -1,5 +1,14 @@
 import React from "react";
-import {form, initializeReactContainer, render, field, element, click, submit} from "./reactTestExtensions";
+import {
+  form,
+  initializeReactContainer,
+  render,
+  field,
+  element,
+  click,
+  submit,
+  submitButton, change
+} from "./reactTestExtensions";
 import {CustomerForm} from "../src/CustomerForm";
 
 describe("CustomerForm", () => {
@@ -45,24 +54,28 @@ describe("CustomerForm", () => {
 
   it("renders a submit button", () => {
     render(<CustomerForm original={blankCustomer} />);
-    const button = element("input[type=submit]");
-    expect(button).not.toBeNull();
+    expect(submitButton()).not.toBeNull();
   })
 
+  //This is an important pattern!
   it("saves existing first name when submitted", () => {
     expect.hasAssertions();
-
     const customer = {firstName: "Ashley"};
     render(<CustomerForm original={customer} onSubmit={({firstName})=>expect(firstName).toEqual("Ashley")} />);
-
-    const button = element("input[type=submit]");
-    click(button);
-
+    click(submitButton());
   })
 
+  // And so is this.
   it("prevents the default action when submitting the form", () => {
     render(<CustomerForm original={blankCustomer} onSubmit={()=>{}} />);
     const event = submit(form());
     expect(event.defaultPrevented).toBe(true);
+  })
+
+  it("saves the new first name when submitted.", () => {
+    expect.hasAssertions();
+    render(<CustomerForm original={blankCustomer} onSubmit={({firstName}) => expect(firstName).toEqual("Jamie")} />);
+    change(field("firstName"), "Jamie");
+    click(submitButton());
   })
 });
