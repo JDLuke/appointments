@@ -1,5 +1,5 @@
 import React from "react";
-import {form, initializeReactContainer, render, field, element} from "./reactTestExtensions";
+import {form, initializeReactContainer, render, field, element, click, submit} from "./reactTestExtensions";
 import {CustomerForm} from "../src/CustomerForm";
 
 describe("CustomerForm", () => {
@@ -41,5 +41,28 @@ describe("CustomerForm", () => {
     render(<CustomerForm original={blankCustomer} />);
     const label = element("label[for=firstName]");
     expect(label).toContainText("First name");
+  })
+
+  it("renders a submit button", () => {
+    render(<CustomerForm original={blankCustomer} />);
+    const button = element("input[type=submit]");
+    expect(button).not.toBeNull();
+  })
+
+  it("saves existing first name when submitted", () => {
+    expect.hasAssertions();
+
+    const customer = {firstName: "Ashley"};
+    render(<CustomerForm original={customer} onSubmit={({firstName})=>expect(firstName).toEqual("Ashley")} />);
+
+    const button = element("input[type=submit]");
+    click(button);
+
+  })
+
+  it("prevents the default action when submitting the form", () => {
+    render(<CustomerForm original={blankCustomer} onSubmit={()=>{}} />);
+    const event = submit(form());
+    expect(event.defaultPrevented).toBe(true);
   })
 });

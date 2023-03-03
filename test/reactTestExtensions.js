@@ -20,3 +20,10 @@ export const typesOf = (elements) => elements.map((element) => element.type);
 export const textOf = (elements) => elements.map((element) => element.textContent);
 export const form = () => element("form");
 export const field = (fieldName) => form().elements[fieldName];
+// This 'bubbles' property ensures that the submitted event 'bubbles up' to our container element
+// It's a react thing.
+export const submit = (formElement) => {
+  const event = new Event("submit", { bubbles: true, cancelable: true });
+  act(()=>formElement.dispatchEvent(event));
+  return event;
+}
