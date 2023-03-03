@@ -27,8 +27,19 @@ describe("CustomerForm", () => {
   })
 
   it("renders a label for the first name field", () => {
-    render(<CustomerForm original={blankCustomer} /> )
+    render(<CustomerForm original={blankCustomer} />);
     const label = element("label[for=firstName]");
     expect(label).not.toBeNull();
+  })
+
+  it("assigns an id that matches the label id to the first name field", () => {
+    render(<CustomerForm original={blankCustomer} />);
+    expect(field("firstName").id).toEqual("firstName");
+  })
+
+  it("renders 'First name' as the first name label content", () => {
+    render(<CustomerForm original={blankCustomer} />);
+    const label = element("label[for=firstName]");
+    expect(label).toContainText("First name");
   })
 });
