@@ -1,11 +1,11 @@
 // import {toContainText} from "./toContainText";
 
 import {toBeInputFieldOfType} from "./toBeInputFieldOfType";
-//import {field} from "../reactTestExtensions";
-// expect(field(fieldName)).toBeInputFieldOfType("text");
-const stripTerminalColor = (text) => text.replace(/\x1B\[\d+m/g,"");
+import {stripTerminalColor} from "../reactTestExtensions";
 
 describe('toBeInputFieldOfType matcher', () => {
+  const displayElement = {type: "text", tagName: "DISPLAY"};
+
   it("returns pass is true when field is of input type", () => {
     const domElement = {type: "text", tagName: "INPUT"};
     const result = toBeInputFieldOfType(domElement, "text");
@@ -24,25 +24,32 @@ describe('toBeInputFieldOfType matcher', () => {
   })
 
   it("returns pass is false when not an input field", () => {
-    const domElement = {type: "text", tagName: "DISPLAY"};
-    const result = toBeInputFieldOfType(domElement, "text");
+    const result = toBeInputFieldOfType(displayElement, "text");
     expect(result.pass).toBe(false);
   });
   it("returns correct message when not an input field", () => {
-    const domElement = {type: "text", tagName: "DISPLAY"};
-    const result = toBeInputFieldOfType(domElement, "text");
+    const result = toBeInputFieldOfType(displayElement, "text");
+    expect(stripTerminalColor(result.message())).toContain(`Actual type: "DISPLAY"`)
+  })
+
+  it("returns correct message when not an input field", () => {
+    const result = toBeInputFieldOfType(displayElement, "text");
     expect(stripTerminalColor(result.message())).toContain(`expect(element).toBeInputFieldOfType("text")`)
   })
 
   it("returns pass is false when null", () => {
-    const domElement = null;
-    const result = toBeInputFieldOfType(domElement, "text");
+    const result = toBeInputFieldOfType(null, "text");
     expect(result.pass).toBe(false);
   });
+
   it("returns correct message when null", () => {
-    const domElement = null;
-    const result = toBeInputFieldOfType(domElement, "text");
+    const result = toBeInputFieldOfType(null, "text");
     expect(stripTerminalColor(result.message())).toContain(`expect(element).toBeInputFieldOfType("text")`)
+  })
+
+  it("returns correct actual when null", () => {
+    const result = toBeInputFieldOfType(null, "text");
+    expect(stripTerminalColor(result.message())).toContain(`Actual type: "null"`)
   })
 
 })

@@ -39,4 +39,6 @@ export const change = (target, value) => {
   act(() => target.dispatchEvent(event));
 }
 
-export const labelFor = (fieldName) => element(`label[for=${fieldName}]`);
+export const labelFor = (fieldName) => element(`label[for=${fieldName}]`); //import {field} from "../reactTestExtensions";
+// expect(field(fieldName)).toBeInputFieldOfType("text");
+export const stripTerminalColor = (text) => text.replace(/\x1B\[\d+m/g, "");
