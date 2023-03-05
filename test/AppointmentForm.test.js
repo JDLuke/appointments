@@ -1,5 +1,5 @@
 import React from "react";
-import {initializeReactContainer, render} from "./reactTestExtensions";
+import {form, initializeReactContainer, render} from "./reactTestExtensions";
 import {AppointmentForm} from "../src/AppointmentForm";
 
 
@@ -9,5 +9,6 @@ describe("AppointmentForm", () => {
   })
   it("renders an appointment form", () => {
     render(<AppointmentForm/>)
+    expect(form()).not.toBeNull();
   })
 })
