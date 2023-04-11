@@ -9,6 +9,7 @@ describe("AppointmentForm", () => {
   }
   const labelsOfAllOptions = (element) => Array.from(element.childNodes, (node)=>node.textContent);
 
+  const services = ["S1", "S2"];
   const blankAppointment = { service: "" };
 
   beforeEach(() => {
@@ -33,17 +34,14 @@ describe("AppointmentForm", () => {
     });
 
     it("lists all salon services", () => {
-      const services = ["S1", "S2"];
-
       render(<AppointmentForm selectableServices={services}  original={blankAppointment}/>);
       expect(labelsOfAllOptions(field("service"))).toEqual(expect.arrayContaining(services))
     });
 
     it("pre-selects the existing value", () => {
-      const services = ["Cut", "Dry"];
-      const appointment = {service: "Dry"};
+      const appointment = {service: services[1]};
       render(<AppointmentForm selectableServices={services} original={appointment} />);
-      const option = findOption(field("service"), "Dry");
+      const option = findOption(field("service"), services[1]);
       expect(option.selected).toBe(true)
     });
   });
@@ -66,4 +64,13 @@ describe("AppointmentForm", () => {
       expect(headerRow.firstChild).toContainText("");
     })
   });
+  it("renders a week of available dates", () => {
+    const specificDate = new Date(2018, 11, 1)
+    render(<AppointmentForm original={blankAppointment} today={specificDate} /> )
+    const dates = elements("thead >* th:not(:first-child)")
+    expect(dates).toHaveLength(7);
+    expect(dates[0]).toContainText("Sat 01");
+    expect(dates[1]).toContainText("Sun 02");
+    expect(dates[6]).toContainText("Fri 07");
+  })
 });
